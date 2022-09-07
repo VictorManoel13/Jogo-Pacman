@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <locale.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #define L 20
 #define C 29
 
@@ -12,7 +13,7 @@ struct coord
 	int y;
 };
 
-// variáveis do pacman
+// vari�veis do pacman
 struct PacMan
 {
 	struct coord posicao;
@@ -42,7 +43,7 @@ struct PacMan AllanAllan = {
 	.hr = 0,
 	.j = 0};
 
-// variáveis dos fantasmas
+// vari�veis dos fantasmas
 struct Fantasma
 {
 	int gx[4];
@@ -51,6 +52,8 @@ struct Fantasma
 	int vgy[4];
 	int ig[4];
 };
+
+
 
 struct Fantasma ghost =
 	{   // FANTASMA 1
@@ -113,16 +116,167 @@ void inicializar()
 		}
 	}
 }
+void linhaCol(int lin, int col);
+void box(int lin1, int col1, int lin2, int col2);
+int menu(int lin1, int col1, int qtd, char lista[2][20]);
+void textColor(int letras, int fundo);
+  //COR DA LETRA
+  enum{BLACK,                 //0
+       BLUE,                  //1
+       GREEN,                 //2
+       CYAN,                  //3
+       RED,                   //4
+       MAGENTA,               //5
+       BROWN,                 //6
+       LIGHTGRAY,             //7
+       DARKGRAY,              //8
+       LIGHTBLUE,             //9
+       LIGHTGREEN,            //10
+       LIGHTCYAN,             //11
+       LIGHTRED,              //12
+       LIGHTMAGENTA,          //13
+       YELLOW,                //14
+       WHITE                  //15
+       
+       };  
+  //COR DO FUNDO
+  enum{_BLACK=0,                 //0
+       _BLUE=16,                  //1
+       _GREEN=32,                 //2
+       _CYAN=48,                  //3
+       _RED=64,                   //4
+       _MAGENTA=80,               //5
+       _BROWN=96,                 //6
+       _LIGHTGRAY=112,             //7
+       _DARKGRAY=128,              //8
+       _LIGHTBLUE=144,             //9
+       _LIGHTGREEN=160,            //10
+       _LIGHTCYAN=176,             //11
+       _LIGHTRED=192,              //12
+       _LIGHTMAGENTA=208,          //13
+       _YELLOW=224,                //14
+       _WHITE=240                  //15       
+       };  
+       
+
+void textColor(int letra, int fundo){ // altera a cor da letra e do fundo
+     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), letra + fundo);
+     }
+     
+void linhaCol(int lin, int col){// coordenada na tela
+     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),(COORD){col-1,lin-1});
+     
+     //funcao para deixar o cursor invisivel
+     HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+     CONSOLE_CURSOR_INFO info;
+     info.dwSize = 100;
+     info.bVisible = FALSE;
+     SetConsoleCursorInfo(consoleHandle, &info);
+}
+void box(int lin1, int col1, int lin2, int col2){ //criar o box
+     int i,j , tamlin, tamcol;
+     
+     //achar o tamanho do box
+     tamlin = lin2 - lin1;
+     tamcol = col2 - col1;
+     
+     //Monta o Box
+     
+     for (i=col1; i<=col2; i++){ // linhas
+         linhaCol(lin1,i);
+         printf("%c",196);
+         linhaCol(lin2,i);
+         printf("%c",196);
+         }
+        
+     for (i=lin1; i<=lin2; i++){ //colunas
+         linhaCol(i,col1);
+         printf("%c",179);
+         linhaCol(i,col2);
+         printf("%c",179);
+         }
+     for (i=lin1+1;i<lin2;i++){
+         for(j=col1+1;j<col2;j++){
+            linhaCol(i,j);printf(" ");
+         }
+         }
+     //Posi��o dos cantos
+     linhaCol(lin1,col1);
+     printf("%c",218);
+     linhaCol(lin1,col2);
+     printf("%c",191);
+     linhaCol(lin2,col1);
+     printf("%c",192);
+     linhaCol(lin2,col2);
+     printf("%c",217);       
+     
+     }
+int menu(int lin1, int col1, int qtd, char lista[2][20]){
+     int opc=1, lin2, col2, linha,i,tamMaxItem, tecla;
+     
+     //calcula as coordenadas
+     tamMaxItem = strlen(lista[0]);
+     //tamanho maximo do item
+     for(i=1; i<qtd;i++){
+       if(strlen(lista[i])>tamMaxItem){
+          tamMaxItem = strlen(lista[i]); 
+       } 
+     }
+     lin2 = lin1+(qtd*2+2);
+     col2 = col1+tamMaxItem+20;
+     
+     //Monta Tela
+     textColor(WHITE, _BLUE);
+     setlocale(LC_ALL,"C");
+     box(lin1,col1,lin2,col2);
+     setlocale(LC_ALL,"");
+     //la�o das opc�es
+     while(1){
+     
+        linha=lin1+2;
+        for(i=0;i<qtd;i++){           
+           if(i+1==opc){
+		   	   textColor(BLACK, _RED);
+			}else{
+			   textColor(WHITE, _BLUE);
+			}
+        linhaCol(linha,col1+10);
+        printf("%s",lista[i]);
+        linha +=2;
+        }
+       
+       //Aguarda tecla
+       linhaCol(1,1);
+       tecla= getch();
+       linhaCol(22,1);
+       //Op��o
+       if(tecla==13){ //ENTER
+       break;
+       }
+       //Seta para cima
+       else if(tecla==72){ //se possivel seleciona o item anterior - seta para cima
+            if(opc>1){
+			   opc--;// se opcao for maior que 1, pode voltar 
+			}
+       }
+       else if(tecla==80 ){ //seta para baixo
+            if (opc<qtd){
+			    opc++;    //Se opcao for menor que quantidade de itens, posso avan�ar
+			}
+       }
+     }
+     return opc;
+}     
 
 void teclado()
 {
 
-	if (_kbhit()) // verifica se é tecla
+	if (_kbhit()) // verifica se � tecla
 	{
 		char c1 = _getch();			// c1 pega a tecla
-		if (c1 == -32 || c1 == 115) // todas as setas são -32 e a tecla s é 115
+		if (c1 == -32 || c1 == 115) // todas as setas s�o -32 e a tecla s � 115
 		{
-			char c1 = _getch(); // ler de novo, as setas ficam com variáveis diferentes
+			char c1 = _getch(); // ler de novo, as setas ficam com vari�veis diferentes
 
 			AllanAllan.vx = 0;
 			AllanAllan.vy = 0;
@@ -183,13 +337,13 @@ void movimento_fantasma()
 	int n = 0;
 	for (i = 0; i < 4; i++)
 	{
-		// nova posição de fantasma
+		// nova posi��o de fantasma
 		
 		int ngx[i];
 		int ngy[i];
 		ngx[i] = ghost.vgx[i] + ghost.gx[i];
 		ngy[i] = ghost.vgy[i] + ghost.gy[i];
-		// verifica se é parede, se for parede, então o próximo movimento é aleatório
+		// verifica se � parede, se for parede, ent�o o pr�ximo movimento � aleat�rio
 		if (mapa[ngx[i]][ngy[i]] == 1 || mapa[ngx[i]][ngy[i]] == 2)
 		{
 			ghost.vgx[i] = 0;
@@ -203,17 +357,17 @@ void movimento_fantasma()
 				ghost.ig[i] = rand() % 4;
 			}
 		}
-		// caso a nova posição seja a comdia, a antiga recebe comida também
+		// caso a nova posi��o seja a comdia, a antiga recebe comida tamb�m
 		if (mapa[ngx[i]][ngy[i]] == '.')
 		{
 			mapa[ghost.gx[i]][ghost.gy[i]] = '.';
 		}
-		// caso a nova posição seja espaço vazio, a antiga recebe espaço vazio também
+		// caso a nova posi��o seja espa�o vazio, a antiga recebe espa�o vazio tamb�m
 		if (mapa[ngx[i]][ngy[i]] == ' ')
 		{
 			mapa[ghost.gx[i]][ghost.gy[i]] = ' ';
 		}
-		// fantasma verifica se a nova posição é o pacman, se for o pacman, então o programa encerra
+		// fantasma verifica se a nova posi��o � o pacman, se for o pacman, ent�o o programa encerra
 		if (mapa[ngx[i]][ngy[i]] == 3)
 		{
 			AllanAllan.i = 3;
@@ -221,7 +375,7 @@ void movimento_fantasma()
 		// movimento do fantasma
 		ghost.gx[i] += ghost.vgx[i];
 		ghost.gy[i] += ghost.vgy[i];
-		// nova posição do fantasma
+		// nova posi��o do fantasma
 		mapa[ghost.gx[0]][ghost.gy[0]] = 2;
 		mapa[ghost.gx[1]][ghost.gy[1]] = 2;
 		mapa[ghost.gx[2]][ghost.gy[2]] = 2;
@@ -232,37 +386,34 @@ void movimento_fantasma()
 void movimento()
 {
 	float j=0;
-	// antiga posição
+	// antiga posi��o
 	mapa[AllanAllan.posicao.y][AllanAllan.posicao.x] = ' ';
-	// nova posição
+	// nova posi��o
 	int nx = AllanAllan.vx + AllanAllan.posicao.x;
 	int ny = AllanAllan.vy + AllanAllan.posicao.y;
-	// verifca se é parede
+	// verifca se � parede
 	if (mapa[ny][nx] == 1)
 	{
 
 		AllanAllan.vx = 0;
 		AllanAllan.vy = 0;
 	}
-	// verifica se é fantasma
+	// verifica se � fantasma
 	if (mapa[ny][nx] == 2)
 	{
 		AllanAllan.i = 3;
 	}
 	// movimento
-	while(j!=10){
-		j=j+0.5;
-	}
-	if(j==10){
+
 	AllanAllan.posicao.x += AllanAllan.vx;
 	AllanAllan.posicao.y += AllanAllan.vy;
-	}
-	// verifica se é comida
+
+	// verifica se � comida
 	if (mapa[ny][nx] == '.')
 	{
 		AllanAllan.comida++;
 	}
-	// nova posição do pacman
+	// nova posi��o do pacman
 	mapa[AllanAllan.posicao.y][AllanAllan.posicao.x] = 3;
 }
 
@@ -286,7 +437,7 @@ void cornometro()
 		AllanAllan.hr = 0;
 	}
 
-	Sleep(100); // tem a função de pausar a execução por um determinado tempo
+	Sleep(100); // tem a fun��o de pausar a execu��o por um determinado tempo
 	AllanAllan.sec += 2.8;
 }
 
@@ -294,17 +445,18 @@ void mostrar_mapa()
 {
 	int i, j;
 
-	printf("Pontos: %d\t%dh:%dm:%ds\n", AllanAllan.comida, AllanAllan.hr / 10, AllanAllan.min, AllanAllan.sec / 10);
+	printf("\t\t\t\t\t\tPontos: %d\t%dh:%dm:%ds\n", AllanAllan.comida, AllanAllan.hr / 10, AllanAllan.min, AllanAllan.sec / 10);
 
 	for (i = 0; i < L; i++)
 	{
+		printf("\t\t\t\t\t\t");
 		for (j = 0; j < C; j++)
 		{
 			printf("%c", mapa[i][j]);
 		}
 		printf("\n");
 	}
-	printf("Aperte S duas vezes para pausar\n");
+	printf("\t\t\t\t\t\tAperte S duas vezes para pausar\n");
 }
 
 // fixar mapa
@@ -350,6 +502,43 @@ void morte()
 
 int main()
 {
+	int opc;
+    char lista[2][20]={"JOGAR", "SAIR"};
+    setlocale(LC_ALL,"");
+    linhaCol(2, 5);
+    textColor(RED, _BLACK);
+    //ideia de nome
+    printf("\t\t\t\t\t|   ###    ###    ##      ##  ##### |\n");
+    printf("\t\t\t\t\t| ##     ##   ##  ## #  # ##  ##    |\n");
+    printf("\t\t\t\t\t| ##     ##   ##  ##  ##  ##  ####  |\n");
+    printf("\t\t\t\t\t| ##     ##   ##  ##      ##  ##    |\n");
+    printf("\t\t\t\t\t|   ###    ###    ##      ##  ##### |\n\n");
+	printf("\t\t\t\t\t|   ###    ###    ##      ##  ##### |\n");
+    printf("\t\t\t\t\t| ##     ##   ##  ## #  # ##  ##    |\n");
+    printf("\t\t\t\t\t| ##     ##   ##  ##  ##  ##  ####  |\n");
+    printf("\t\t\t\t\t| ##     ##   ##  ##      ##  ##    |\n");
+    printf("\t\t\t\t\t|   ###    ###    ##      ##  ##### |\n");
+    while(true){
+       opc = menu(15,47,2,lista);
+       if(opc==1){//redirecionar para o jogo
+        linhaCol(1,1);
+        textColor(WHITE, _BLACK);
+        printf("\nINICIA O JOGO");
+		system("cls");
+		break;
+		
+		}
+		if(opc==2){//encerra o jogo
+			textColor(WHITE, _BLACK);
+        	system("cls");
+        	AllanAllan.j = 1;
+        	break;
+		}
+    }
+  textColor(WHITE, _BLACK);
+  linhaCol(24,1);
+  printf("");
+  system("cls");
 
 	SetConsoleTitle("Jogo que Ceres gostou");
 	inicializar();
@@ -363,7 +552,7 @@ int main()
 		cornometro();
 		pause();
 		morte();
-		
+		Sleep(100);
 		set_cursor_position(0, 0);
 	}
 	system("cls");
