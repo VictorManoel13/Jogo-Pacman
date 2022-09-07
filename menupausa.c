@@ -8,7 +8,7 @@
 
 void linhaCol(int lin, int col);
 void box(int lin1, int col1, int lin2, int col2);
-int menu(int lin1, int col1, int qtd, char lista[3][20]);
+int menu(int lin1, int col1, int qtd, char lista[2][20]);
 void textColor(int letras, int fundo);
   //COR DA LETRA
   enum{BLACK,                 //0
@@ -101,7 +101,7 @@ void box(int lin1, int col1, int lin2, int col2){ //criar o box
      printf("%c",217);       
      
      }
-int menu(int lin1, int col1, int qtd, char lista[3][20]){
+int menu(int lin1, int col1, int qtd, char lista[2][20]){
      int opc=1, lin2, col2, linha,i,tamMaxItem, tecla;
      
      //calcula as coordenadas
@@ -161,7 +161,7 @@ int menu(int lin1, int col1, int qtd, char lista[3][20]){
 int main()
 {
     int opc;
-    char lista[3][20]={"CONTINUAR","REINICIAR", "SAIR"};
+    char lista[2][20]={"CONTINUAR", "SAIR"};
     setlocale(LC_ALL,"");
     linhaCol(2, 5);
     textColor(RED, _BLACK);
@@ -172,18 +172,13 @@ int main()
     printf("\t\t\t\t\t| ##      ##  ##  ##  ##      #  ##  ## |\n");
     printf("\t\t\t\t\t| ##      ##  ##   ####   ####   ##  ## |\n\n");
     while(true){
-       opc = menu(10,47,3,lista);
+       opc = menu(10,47,2,lista);
        if(opc==1){//continuar o jogo
         linhaCol(1,1);
         textColor(WHITE, _BLACK);
         printf("\ncontinua o jogo");
 		}
-		if(opc==2){//reinicia o jogo se quiser que tenha essa opcao
-        linhaCol(1,1);
-        textColor(WHITE, _BLACK);
-        printf("\nreinicia o jogo");
-		}
-		if(opc==3){//encerra o jogo ou redireciona para o menu principal?
+		if(opc==2){//encerra o jogo ou redireciona para o menu principal?
 			textColor(WHITE, _BLACK);
         	system("cls");
         	exit(0);
