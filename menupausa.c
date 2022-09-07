@@ -178,7 +178,7 @@ int main()
         textColor(WHITE, _BLACK);
         printf("\ncontinua o jogo");
 		}
-		if(opc==2){//reinicia o jogo
+		if(opc==2){//reinicia o jogo se quiser que tenha essa opcao
         linhaCol(1,1);
         textColor(WHITE, _BLACK);
         printf("\nreinicia o jogo");
