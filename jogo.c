@@ -372,6 +372,5 @@ int main()
 		printf("Voce perdeu\n");
 	}
 	printf("Obrigado por jogar");
-	printf("Oi");
 	int h;
 }
