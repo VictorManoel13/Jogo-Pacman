@@ -678,12 +678,22 @@ void morte()
     if (ComeCome.i == 3)
     {
 
-        system("cls");
-        int opc;
-        char lista[2][20] = {"JOGAR NOVAMENTE", "SAIR"};
-        setlocale(LC_ALL, "");
-        linhaCol(2, 5);
-        textColor(RED, _BLACK);
+    system("cls");
+    int opc;
+    char lista[2][20] = {"JOGAR NOVAMENTE", "SAIR"};
+    setlocale(LC_ALL, "");
+    linhaCol(2, 5);
+    textColor(RED, _BLACK);
+    printf("\t\t\t\t\t| ##        ##    ###      #####  ###### |\n");
+    printf("\t\t\t\t\t|  ##      ##   ##   ##  ##       ##     |\n");
+    printf("\t\t\t\t\t|   ##    ##    ##   ##  ##       #####  |\n");
+    printf("\t\t\t\t\t|    ##  ##     ##   ##  ##       ##     |\n");
+    printf("\t\t\t\t\t|      ##         ###      #####  ###### |\n\n");
+    printf("\t\t\t\t| ######   ######  ######    #######    ######  ##   ## |\n");
+    printf("\t\t\t\t| ##   ##  ##      ##   ##   ##     ##  ##      ##   ## |\n");
+    printf("\t\t\t\t| ######   #####   ######    ##     ##  #####   ##   ## |\n");
+    printf("\t\t\t\t| ##       ##      ##   ##   ##     ##  ##      ##   ## |\n");
+    printf("\t\t\t\t| ##       ######  ##    ##  #######    ######    ###   |\n\n");
         while (true)
         {
             opc = menu(15, 47, 2, lista);
