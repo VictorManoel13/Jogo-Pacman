@@ -365,22 +365,7 @@ void movimento_fantasma()
 		ngx[i] = ghost.vgx[i] + ghost.gx[i];
 		ngy[i] = ghost.vgy[i] + ghost.gy[i];
 		// verifica se � parede, se for parede, ent�o o pr�ximo movimento � aleat�rio
-		if (mapa[ngx[i]][ngy[i]] == 1 || mapa[ngx[i]][ngy[i]] == 2)
-		{
-			ghost.vgx[i] = 0;
-			ghost.vgy[i] = 0;
-
-			if (n == 0)
-			{
-				srand(time(NULL));
-				ghost.ig[i] = rand() % 4;
-				n = 1;
-			}
-			else if (n == 1)
-			{
-				ghost.ig[i] = rand() % 4;
-			}
-		}
+		parede_fantasma();
 		// caso a nova posi��o seja a comdia, a antiga recebe comida tamb�m
 		if (mapa[ngx[i]][ngy[i]] == '.')
 		{
@@ -405,6 +390,81 @@ void movimento_fantasma()
 		mapa[ghost.gx[2]][ghost.gy[2]] = 2;
 		mapa[ghost.gx[3]][ghost.gy[3]] = 2;
 	}
+}
+
+void parede_fantasma(){
+	int n = 0;
+    int i;
+    int ngx[4];
+	int ngy[4];
+	ngx[0] = ghost.vgx[0] + ghost.gx[0];
+	ngy[0] = ghost.vgy[0] + ghost.gy[0];
+    
+	ngx[1] = ghost.vgx[1] + ghost.gx[1];
+	ngy[1] = ghost.vgy[1] + ghost.gy[1];
+
+    ngx[2] = ghost.vgx[2] + ghost.gx[2];
+	ngy[2] = ghost.vgy[2] + ghost.gy[2];
+
+    ngx[3] = ghost.vgx[3] + ghost.gx[3];
+	ngy[3] = ghost.vgy[3] + ghost.gy[3];
+
+    // fantasma 1
+    if (mapa[ngx[0]][ngy[0]] == 1 || mapa[ngx[0]][ngy[0]] == 2)
+		{
+			ghost.vgx[0] = 0;
+			ghost.vgy[0] = 0;
+			
+			if(n==0){
+				srand(time(NULL));
+				ghost.ig[0] = rand() % 4;
+				n = 1;
+			} else if(n==1){
+				ghost.ig[0] = rand() % 4;
+			}
+		}
+    // fantasma 2
+    if (mapa[ngx[1]][ngy[1]] == 1 || mapa[ngx[1]][ngy[1]] == 2)
+		{
+			ghost.vgx[1] = 0;
+			ghost.vgy[1] = 0;
+			
+			if(n==0){
+				srand(time(NULL));
+				ghost.ig[1] = rand() % 4;
+				n = 1;
+			} else if(n==1){
+				ghost.ig[1] = rand() % 4;
+			}
+		}
+    // fantasma 3
+    if (mapa[ngx[2]][ngy[2]] == 1 || mapa[ngx[2]][ngy[2]] == 2)
+		{
+			ghost.vgx[2] = 0;
+			ghost.vgy[2] = 0;
+			
+			if(n==0){
+				srand(time(NULL));
+				ghost.ig[2] = rand() % 4;
+				n = 1;
+			} else if(n==1){
+				ghost.ig[2] = rand() % 4;
+			}
+		}
+    // fantasma 4
+    if (mapa[ngx[3]][ngy[3]] == 1 || mapa[ngx[3]][ngy[3]] == 2)
+		{
+			ghost.vgx[3] = 0;
+			ghost.vgy[3] = 0;
+			
+			if(n==0){
+				srand(time(NULL));
+				ghost.ig[3] = rand() % 4;
+				n = 1;
+			} else if(n==1){
+				ghost.ig[3] = rand() % 4;
+			}
+		}
 }
 
 void movimento()
