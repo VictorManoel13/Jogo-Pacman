@@ -115,6 +115,17 @@ void inicializar()
 		}
 	}
 }
+void reiniciar(){
+    int i, j;
+	for (i = 0; i < 20; i++)
+	{
+		for (j = 0; j < 29; j++)
+		{
+			if (mapa[i][j] == ' ')
+				mapa[i][j] = '.';
+		}
+	}
+}
 
 void linhaCol(int lin, int col);
 void box(int lin1, int col1, int lin2, int col2);
@@ -673,5 +684,21 @@ int main()
 	{
 		printf("Voce perdeu\n");
 	}
-	printf("Obrigado por jogar");
+	linhaCol(2, 5);
+    textColor(RED, _BLACK);
+    printf("\t\t\t\t|  ###   #####   #####    ##  ######     ##    #######      ###  |\n");
+    printf("\t\t\t\t|##   ## ##   #  ##   #   ##  ##        #  #   ##     #   ##   ##|\n");
+    printf("\t\t\t\t|##   ## ######  #####    ##  ##  ###  ######  ##      #  ##   ##|\n");
+    printf("\t\t\t\t|##   ## ##    # ##  ##   ##  ##    # ##    ## ##     #   ##   ##|\n");
+    printf("\t\t\t\t|  ###   ######  ##   ##  ##  ######  ##    ## #######      ###  |\n\n");
+    printf("\t\t\t\t\t\t|#####     ###    #####  |\n");
+    printf("\t\t\t\t\t\t|##   #  ##   ##  ##   # |\n");
+    printf("\t\t\t\t\t\t|#####   ##   ##  #####  |\n");
+    printf("\t\t\t\t\t\t|##      ##   ##  ##  ## |\n");
+    printf("\t\t\t\t\t\t|##        ###    ##   ##|\n\n");
+    printf("\t\t\t\t\t|########   ###    ######      ##     #####  |\n");
+    printf("\t\t\t\t\t|    ##   ##   ##  ##         #  #    ##   # |\n");
+    printf("\t\t\t\t\t|    ##   ##   ##  ##  ###   ######   #####  |\n");
+    printf("\t\t\t\t\t|##  ##   ##   ##  ##    #  ##    ##  ##  ## |\n");
+    printf("\t\t\t\t\t|  ###      ###    ######   ##    ##  ##   ##|\n\n");
 }
