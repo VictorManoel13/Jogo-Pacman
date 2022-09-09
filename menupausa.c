@@ -122,7 +122,7 @@ void reiniciar()
     {
         for (j = 0; j < 29; j++)
         {
-            if (mapa[i][j] == ' ')
+            if (mapa[i][j] == ' ' || mapa[i][j] == 3 || mapa[i][j] == 2)
                 mapa[i][j] = '.';
         }
     }
@@ -676,7 +676,7 @@ void morte()
 
         system("cls");
         int opc;
-        char lista[2][20] = {"REINICIAR", "SAIR"};
+        char lista[2][20] = {"JOGAR NOVAMENTE", "SAIR"};
         setlocale(LC_ALL, "");
         linhaCol(2, 5);
         textColor(RED, _BLACK);
@@ -688,6 +688,41 @@ void morte()
                 linhaCol(1, 1);
                 textColor(WHITE, _BLACK);
                 system("cls");
+                ComeCome.posicao.x = 14;
+                ComeCome.posicao.y = 15;
+                ComeCome.vx = 0;
+                ComeCome.vy = 0;
+                ComeCome.comida = 0;
+                ComeCome.i = 0;
+                ComeCome.sec = 0;
+                ComeCome.min = 0;
+                ComeCome.hr = 0;
+                ComeCome.j = 0;
+
+                ghost.gx[0] = 1;
+                ghost.gy[0] = 1;
+                ghost.vgx[0] = 0;
+                ghost.vgy[0] = 0;
+                ghost.ig[0] = 0;
+
+                ghost.gx[1] = 9;
+                ghost.gy[1] = 14;
+                ghost.vgx[1] = 0;
+                ghost.vgy[1] = 0;
+                ghost.ig[1] = 0;
+
+                ghost.gx[2] = 9;
+                ghost.gy[2] = 12;
+                ghost.vgx[2] = 0;
+                ghost.vgy[2] = 0;
+                ghost.ig[2] = 0;
+
+                ghost.gx[3] = 1;
+                ghost.gy[3] = 27;
+                ghost.vgx[3] = 0;
+                ghost.vgy[3] = 0;
+                ghost.ig[3] = 0;
+                reiniciar();
                 break;
             }
             if (opc == 2)
