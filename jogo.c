@@ -588,7 +588,7 @@ void pause()
         }
 
         int opc;
-        char lista[2][20] = {"CONTINUAR", "SAIR"};
+        char lista[3][20] = {"CONTINUAR","REINICIAR", "SAIR"};
         setlocale(LC_ALL, "");
         linhaCol(2, 5);
         textColor(RED, _BLACK);
@@ -600,7 +600,7 @@ void pause()
         printf("\t\t\t\t\t| ##      ##  ##   ####   ####   ##  ## |\n\n");
         while (true)
         {
-            opc = menu(10, 47, 2, lista);
+            opc = menu(10, 47, 3, lista);
             if (opc == 1)
             { // continuar o jogo
                 linhaCol(1, 1);
@@ -611,7 +611,11 @@ void pause()
                 break;
             }
             if (opc == 2)
-            { // encerra o jogo ou redireciona para o menu principal?
+            { // reinicia o jogo 
+            	  
+            }
+            if (opc == 3)
+            { // encerra o jogo 
                 textColor(WHITE, _BLACK);
                 system("cls");
                 ComeCome.i = 1;
