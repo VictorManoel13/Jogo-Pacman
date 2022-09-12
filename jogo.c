@@ -611,7 +611,47 @@ void pause()
                 break;
             }
             if (opc == 2)
-            { // reinicia o jogo 
+            { // reinicia o jogo
+
+				linhaCol(1, 1);
+                textColor(WHITE, _BLACK);
+                system("cls");
+                ComeCome.posicao.x = 14;
+                ComeCome.posicao.y = 15;
+                ComeCome.vx = 0;
+                ComeCome.vy = 0;
+                ComeCome.comida = 0;
+                ComeCome.i = 0;
+                ComeCome.sec = 0;
+                ComeCome.min = 0;
+                ComeCome.hr = 0;
+                ComeCome.j = 0;
+
+                ghost.gx[0] = 1;
+                ghost.gy[0] = 1;
+                ghost.vgx[0] = 0;
+                ghost.vgy[0] = 0;
+                ghost.ig[0] = 0;
+
+                ghost.gx[1] = 9;
+                ghost.gy[1] = 14;
+                ghost.vgx[1] = 0;
+                ghost.vgy[1] = 0;
+                ghost.ig[1] = 0;
+
+                ghost.gx[2] = 9;
+                ghost.gy[2] = 12;
+                ghost.vgx[2] = 0;
+                ghost.vgy[2] = 0;
+                ghost.ig[2] = 0;
+
+                ghost.gx[3] = 1;
+                ghost.gy[3] = 27;
+                ghost.vgx[3] = 0;
+                ghost.vgy[3] = 0;
+                ghost.ig[3] = 0;
+                reiniciar();
+                break;
             	  
             }
             if (opc == 3)
@@ -755,6 +795,85 @@ void morte()
     }
 }
 
+void ganhou(){
+	if(ComeCome.comida == 174){
+	system("cls");
+	int opc;
+    char lista[2][20] = {"JOGAR NOVAMENTE", "SAIR"};
+    setlocale(LC_ALL, "");
+	linhaCol(2, 5);
+    textColor(RED, _BLACK);
+	printf("\t\t\t\t\t| ##        ##    ###      #####  ###### |\n");
+    printf("\t\t\t\t\t|  ##      ##   ##   ##  ##       ##     |\n");
+    printf("\t\t\t\t\t|   ##    ##    ##   ##  ##       #####  |\n");
+    printf("\t\t\t\t\t|    ##  ##     ##   ##  ##       ##     |\n");
+    printf("\t\t\t\t\t|      ##         ###      #####  ###### |\n\n");
+    printf("\t\t\t\t| ######      ##     ###    ##  ##  ##    ###    ##   ## |\n");
+    printf("\t\t\t\t| ##         #  #    ## #   ##  ##  ##  ##   ##  ##   ## |\n");
+    printf("\t\t\t\t| ##  ###   ######   ##  #  ##  ######  ##   ##  ##   ## |\n");
+    printf("\t\t\t\t| ##    #  ##    ##  ##   # ##  ##  ##  ##   ##  ##   ## |\n");
+    printf("\t\t\t\t| ######   ##    ##  ##    ###  ##  ##    ###      ###   |\n\n");
+	 while (true)
+        {
+            opc = menu(15, 47, 2, lista);
+            if (opc == 1)
+            { // reinicia o jogo
+                linhaCol(1, 1);
+                textColor(WHITE, _BLACK);
+                system("cls");
+                ComeCome.posicao.x = 14;
+                ComeCome.posicao.y = 15;
+                ComeCome.vx = 0;
+                ComeCome.vy = 0;
+                ComeCome.comida = 0;
+                ComeCome.i = 0;
+                ComeCome.sec = 0;
+                ComeCome.min = 0;
+                ComeCome.hr = 0;
+                ComeCome.j = 0;
+
+                ghost.gx[0] = 1;
+                ghost.gy[0] = 1;
+                ghost.vgx[0] = 0;
+                ghost.vgy[0] = 0;
+                ghost.ig[0] = 0;
+
+                ghost.gx[1] = 9;
+                ghost.gy[1] = 14;
+                ghost.vgx[1] = 0;
+                ghost.vgy[1] = 0;
+                ghost.ig[1] = 0;
+
+                ghost.gx[2] = 9;
+                ghost.gy[2] = 12;
+                ghost.vgx[2] = 0;
+                ghost.vgy[2] = 0;
+                ghost.ig[2] = 0;
+
+                ghost.gx[3] = 1;
+                ghost.gy[3] = 27;
+                ghost.vgx[3] = 0;
+                ghost.vgy[3] = 0;
+                ghost.ig[3] = 0;
+                reiniciar();
+                break;
+            }
+            if (opc == 2)
+            { // encerra o jogo
+                textColor(WHITE, _BLACK);
+                system("cls");
+                ComeCome.j = 1;
+                break;
+            }
+        }
+
+        textColor(WHITE, _BLACK);
+        linhaCol(24, 1);
+        printf("");
+        system("cls");
+    }
+}
+
 int main()
 {
     SetConsoleTitle("Jogo que Ceres gostou");
@@ -770,6 +889,7 @@ int main()
         cronometro();
         pause();
         morte();
+		ganhou();
         Sleep(100);
         set_cursor_position(0, 0);
     }
@@ -791,4 +911,5 @@ int main()
     printf("\t\t\t\t\t|    ##   ##   ##  ##  ###   ######   #####  |\n");
     printf("\t\t\t\t\t|##  ##   ##   ##  ##    #  ##    ##  ##  ## |\n");
     printf("\t\t\t\t\t|  ###      ###    ######   ##    ##  ##   ##|\n\n");
+	
 }
