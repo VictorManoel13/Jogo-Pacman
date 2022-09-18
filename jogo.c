@@ -16,41 +16,39 @@ struct coord
 // vari�veis do pacman
 struct PacMan
 {
-    struct coord posicao;
-    int vx;
-    int vy;
-    int comida;
+    struct coord posicao; // posição do cursor
+    int vx; // posição x do movimento
+    int vy; // posição y do movimento
+    int comida; // comida do comecome
     int i;   // pausar
     int sec; // segundos
     int min; // minutos
-    int hr;
-    int j; // hora
-    int oldx;
-    int oldy;
+    int hr; // hora
+    int j; // variável para continuar rodando o jogo
 };
 
 struct PacMan ComeCome = {
     {
-        .x = 14,
-        .y = 15,
+        .x = 14, // posição x que o comecome começa
+        .y = 15, // posição y que o comecome começa
     },
-    .vx = 0,
-    .vy = 0,
-    .comida = 0,
-    .i = 0,
-    .sec = 0,
-    .min = 0,
-    .hr = 0,
-    .j = 0};
+    .vx = 0, // posição de movimento x do comecome
+    .vy = 0, // posição de movimento y do comecome
+    .comida = 0, // comida inicial do comecome
+    .i = 0, // critério para pausar o jogo
+    .sec = 0, // segundos iniciais
+    .min = 0, // minutos iniciais
+    .hr = 0, // horas iniciais
+    .j = 0}; // critério para continuar rodando o jogo
 
 // vari�veis dos fantasmas
 struct Fantasma
 {
-    int gx[4];
-    int gy[4];
-    int vgx[4];
-    int vgy[4];
-    int ig[4];
+    int gx[4]; // variável da posição x do fantasma 
+    int gy[4]; // variável da posição y do fantasma 
+    int vgx[4]; // variável movimento x do fantasma
+    int vgy[4]; // variável movimento y do fantasma
+    int ig[4]; // variável para permitir movimento do fantasma
 };
 
 struct Fantasma ghost =
@@ -110,6 +108,7 @@ void inicializar()
     {
         for (j = 0; j < 29; j++)
         {
+            // onde tiver 0 no mapa vai ser substituído por '.'
             if (mapa[i][j] == 0)
                 mapa[i][j] = '.';
         }
@@ -122,6 +121,7 @@ void reiniciar()
     {
         for (j = 0; j < 29; j++)
         {
+            // reinicia o jogo realocando os pontos no lugar do espaço, do comecome e dos fantasmas
             if (mapa[i][j] == ' ' || mapa[i][j] == 3 || mapa[i][j] == 2)
                 mapa[i][j] = '.';
         }
@@ -345,20 +345,20 @@ void teclado_fantasma()
     {
         ghost.vgx[i] = 0;
         ghost.vgy[i] = 0;
-
+        // escolhendo o próximo movimento do fantasma
         switch (ghost.ig[i])
         {
         case 0:
-            ghost.vgx[i] = -1;
+            ghost.vgx[i] = -1; // direita
             break;
         case 1:
-            ghost.vgx[i] = +1;
+            ghost.vgx[i] = +1; // esquerda
             break;
         case 2:
-            ghost.vgy[i] = -1;
+            ghost.vgy[i] = -1; //  cima
             break;
         case 3:
-            ghost.vgy[i] = +1;
+            ghost.vgy[i] = +1; // baixo
             break;
         }
     }
@@ -410,15 +410,16 @@ void parede_fantasma()
     int i;
     int ngx[4];
     int ngy[4];
+    // nova posição fantasma 1
     ngx[0] = ghost.vgx[0] + ghost.gx[0];
     ngy[0] = ghost.vgy[0] + ghost.gy[0];
-
+    // nova posição fantasma 2
     ngx[1] = ghost.vgx[1] + ghost.gx[1];
     ngy[1] = ghost.vgy[1] + ghost.gy[1];
-
+    // nova posição fantasma 3
     ngx[2] = ghost.vgx[2] + ghost.gx[2];
     ngy[2] = ghost.vgy[2] + ghost.gy[2];
-
+    // nova posição fantasma 4
     ngx[3] = ghost.vgx[3] + ghost.gx[3];
     ngy[3] = ghost.vgy[3] + ghost.gy[3];
 
@@ -430,6 +431,7 @@ void parede_fantasma()
 
         if (n == 0)
         {
+            // escolhendo próximo movimento do fantasma 1
             srand(time(NULL));
             ghost.ig[0] = rand() % 4;
             n = 1;
@@ -444,7 +446,7 @@ void parede_fantasma()
     {
         ghost.vgx[1] = 0;
         ghost.vgy[1] = 0;
-
+        // escolhendo próximo movimento do fantasma 2
         if (n == 0)
         {
             srand(time(NULL));
@@ -461,7 +463,7 @@ void parede_fantasma()
     {
         ghost.vgx[2] = 0;
         ghost.vgy[2] = 0;
-
+        // escolhendo próximo movimento do fantasma 3
         if (n == 0)
         {
             srand(time(NULL));
@@ -478,7 +480,7 @@ void parede_fantasma()
     {
         ghost.vgx[3] = 0;
         ghost.vgy[3] = 0;
-
+        // escolhendo próximo movimento do fantasma 4
         if (n == 0)
         {
             srand(time(NULL));
@@ -528,7 +530,7 @@ void movimento()
 
 void cronometro()
 {
-
+    // conta os segundos, adaptado por conta do sleep geral que não é Sleep(1000) = 1 segundo
     if (ComeCome.sec == 590)
     {
         ComeCome.sec = 0;
@@ -553,7 +555,7 @@ void cronometro()
 void mostrar_mapa()
 {
     int i, j;
-
+    // mostra pontos e cronomentro
     printf("\t\t\t\t\t\tPontos: %d\t%dh:%dm:%ds\n", ComeCome.comida, ComeCome.hr / 10, ComeCome.min, ComeCome.sec / 10);
 
     for (i = 0; i < L; i++)
@@ -565,10 +567,11 @@ void mostrar_mapa()
         }
         printf("\n");
     }
+    // auxilia em que botão apertar para pausar o jogo
     printf("\t\t\t\t\t\tAperte S duas vezes para pausar\n");
 }
 
-// fixar mapa
+// defini posição do cursor
 void set_cursor_position(int x, int y)
 {
     COORD coord = {x, y};
@@ -577,7 +580,9 @@ void set_cursor_position(int x, int y)
 
 void pause()
 {
-    int j = 0, k;
+    // j é uma forma de limpar a tela uma vez e depois mostrar a tela pause.
+    int j = 0;
+    // critério para entrar no pause
     while (ComeCome.i == 2)
     {
 
@@ -611,7 +616,7 @@ void pause()
                 break;
             }
             if (opc == 2)
-            { // reinicia o jogo
+            { // reinicia o jogo declarando tudo novamente como estava no ínicio do código
 
 				linhaCol(1, 1);
                 textColor(WHITE, _BLACK);
@@ -715,6 +720,7 @@ void menu_inicial()
 
 void morte()
 {
+    // critério para entrar no if da morte
     if (ComeCome.i == 3)
     {
 
@@ -796,6 +802,7 @@ void morte()
 }
 
 void ganhou(){
+    // critério para ganhar o jogo
 	if(ComeCome.comida == 174){
 	system("cls");
 	int opc;
