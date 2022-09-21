@@ -24,7 +24,9 @@ struct PacMan
     int sec; // segundos
     int min; // minutos
     int hr; // hora
-    int j; // variável para continuar rodando o jogo
+    int j;// variável para continuar rodando o jogo
+    char nome[30];
+    char lista[3][20];
 };
 
 struct PacMan ComeCome = {
@@ -279,6 +281,7 @@ int menu(int lin1, int col1, int qtd, char lista[2][20])
         linhaCol(1, 1);
         tecla = getch();
         linhaCol(22, 1);
+       
         // Op��o
         if (tecla == 13)
         { // ENTER
@@ -603,6 +606,7 @@ void pause()
         printf("\t\t\t\t\t| #####   ######  ##  ##  ####   ###### |\n");
         printf("\t\t\t\t\t| ##      ##  ##  ##  ##      #  ##  ## |\n");
         printf("\t\t\t\t\t| ##      ##  ##   ####   ####   ##  ## |\n\n");
+        printf("\t\t\t\t\tO(a) jogador(a) %s esta com %d ponto(s)\n\n", ComeCome.nome, ComeCome.comida);
         while (true)
         {
             opc = menu(10, 47, 3, lista);
@@ -672,6 +676,7 @@ void pause()
         linhaCol(24, 1);
         printf("");
     }
+    
 }
 
 void menu_inicial()
@@ -692,6 +697,7 @@ void menu_inicial()
     printf("\t\t\t\t\t| ##     ##   ##  ##  ##  ##  ####  |\n");
     printf("\t\t\t\t\t| ##     ##   ##  ##      ##  ##    |\n");
     printf("\t\t\t\t\t|   ###    ###    ##      ##  ##### |\n");
+
     while (true)
     {
         opc = menu(15, 47, 2, lista);
@@ -739,7 +745,8 @@ void morte()
     printf("\t\t\t\t| ##   ##  ##      ##   ##   ##     ##  ##      ##   ## |\n");
     printf("\t\t\t\t| ######   #####   ######    ##     ##  #####   ##   ## |\n");
     printf("\t\t\t\t| ##       ##      ##   ##   ##     ##  ##      ##   ## |\n");
-    printf("\t\t\t\t| ##       ######  ##    ##  #######    ######    ###   |\n\n");
+    printf("\t\t\t\t| ##       ######  ##    ##  #######    ######    ###   |\n");
+    printf("\t\t\t\t\t\tO(a) jogador(a) %s fez %d ponto(s)\n\n", ComeCome.nome, ComeCome.comida);
         while (true)
         {
             opc = menu(15, 47, 2, lista);
@@ -820,6 +827,7 @@ void ganhou(){
     printf("\t\t\t\t| ##  ###   ######   ##  #  ##  ######  ##   ##  ##   ## |\n");
     printf("\t\t\t\t| ##    #  ##    ##  ##   # ##  ##  ##  ##   ##  ##   ## |\n");
     printf("\t\t\t\t| ######   ##    ##  ##    ###  ##  ##    ###      ###   |\n\n");
+    printf("\t\t\t\t\t\tO(a) jogador(a) %s fez %d ponto(s)\n\n", ComeCome.nome, ComeCome.comida);
 	 while (true)
         {
             opc = menu(15, 47, 2, lista);
@@ -881,11 +889,27 @@ void ganhou(){
     }
 }
 
+void nome(){
+    
+    printf("\t\t\t\t\t#########################################\n");
+    printf("\t\t\t\t\t#   #    #  # # #   #       #   # # #   #\n");
+    printf("\t\t\t\t\t#   # # #   #   #   # #   # #   #       #\n");
+    printf("\t\t\t\t\t#   #  #    #   #   #  # #  #   # # #   #\n");
+    printf("\t\t\t\t\t#   #       #   #   #       #   #       #\n");
+    printf("\t\t\t\t\t#   #       # # #   #       #   # # #   #\n");
+    printf("\t\t\t\t\t#                                       #\n");
+    printf("\t\t\t\t\t#########################################\n");
+    printf("\t\t\t\t\t          Digite o seu nome: ");
+    gets(ComeCome.nome);
+    system("cls");
+}
+
 int main()
 {
     SetConsoleTitle("Jogo que Ceres gostou");
     menu_inicial();
     inicializar();
+    nome();
     while (ComeCome.j == 0)
     {
         teclado();
