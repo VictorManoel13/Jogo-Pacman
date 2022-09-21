@@ -27,6 +27,7 @@ struct PacMan
     int j;// variável para continuar rodando o jogo
     char nome[30];
     char lista[3][20];
+    
 };
 
 struct PacMan ComeCome = {
@@ -559,6 +560,7 @@ void mostrar_mapa()
 {
     int i, j;
     // mostra pontos e cronomentro
+    textColor(WHITE, _BLACK);
     printf("\t\t\t\t\t\tPontos: %d\t%dh:%dm:%ds\n", ComeCome.comida, ComeCome.hr / 10, ComeCome.min, ComeCome.sec / 10);
 
     for (i = 0; i < L; i++)
@@ -746,10 +748,11 @@ void morte()
     printf("\t\t\t\t| ######   #####   ######    ##     ##  #####   ##   ## |\n");
     printf("\t\t\t\t| ##       ##      ##   ##   ##     ##  ##      ##   ## |\n");
     printf("\t\t\t\t| ##       ######  ##    ##  #######    ######    ###   |\n");
-    printf("\t\t\t\t\t\tO(a) jogador(a) %s fez %d ponto(s)\n\n", ComeCome.nome, ComeCome.comida);
+    printf("\t\t\t\t\t\t\tAdeus Coracaozin...\n\n");
+    printf("\t\t\t\t\t\tO(a) jogador(a) %s fez %d ponto(s)\n\n\n", ComeCome.nome, ComeCome.comida);
         while (true)
         {
-            opc = menu(15, 47, 2, lista);
+            opc = menu(17, 47, 2, lista);
             if (opc == 1)
             { // reinicia o jogo
                 linhaCol(1, 1);
@@ -827,10 +830,11 @@ void ganhou(){
     printf("\t\t\t\t| ##  ###   ######   ##  #  ##  ######  ##   ##  ##   ## |\n");
     printf("\t\t\t\t| ##    #  ##    ##  ##   # ##  ##  ##  ##   ##  ##   ## |\n");
     printf("\t\t\t\t| ######   ##    ##  ##    ###  ##  ##    ###      ###   |\n\n");
+    printf("\t\t\t\t\t\tCoracaozin conseguiu escapar para viver mais um dia\n\n");
     printf("\t\t\t\t\t\tO(a) jogador(a) %s fez %d ponto(s)\n\n", ComeCome.nome, ComeCome.comida);
 	 while (true)
         {
-            opc = menu(15, 47, 2, lista);
+            opc = menu(17, 47, 2, lista);
             if (opc == 1)
             { // reinicia o jogo
                 linhaCol(1, 1);
@@ -890,19 +894,20 @@ void ganhou(){
 }
 
 void nome(){
-    
-    printf("\t\t\t\t\t#########################################\n");
-    printf("\t\t\t\t\t#   #    #  # # #   #       #   # # #   #\n");
-    printf("\t\t\t\t\t#   # # #   #   #   # #   # #   #       #\n");
-    printf("\t\t\t\t\t#   #  #    #   #   #  # #  #   # # #   #\n");
-    printf("\t\t\t\t\t#   #       #   #   #       #   #       #\n");
-    printf("\t\t\t\t\t#   #       # # #   #       #   # # #   #\n");
-    printf("\t\t\t\t\t#                                       #\n");
-    printf("\t\t\t\t\t#########################################\n");
+    textColor(RED, _BLACK);
+    printf("\t\t\t\t\t #########################################\n");
+    printf("\t\t\t\t\t#  #      #   # # #   #       #   # # #   #\n");
+    printf("\t\t\t\t\t#  # #    #   #   #   # #   # #   #       #\n");
+    printf("\t\t\t\t\t#  #   #  #   #   #   #  # #  #   # # #   #\n");
+    printf("\t\t\t\t\t#  #     ##   #   #   #       #   #       #\n");
+    printf("\t\t\t\t\t#  #      #   # # #   #       #   # # #   #\n");
+    printf("\t\t\t\t\t#                                         #\n");
+    printf("\t\t\t\t\t##########################################\n");
     printf("\t\t\t\t\t          Digite o seu nome: ");
     gets(ComeCome.nome);
     system("cls");
 }
+
 
 int main()
 {
@@ -920,7 +925,7 @@ int main()
         cronometro();
         pause();
         morte();
-		ganhou();
+	ganhou();
         Sleep(100);
         set_cursor_position(0, 0);
     }
