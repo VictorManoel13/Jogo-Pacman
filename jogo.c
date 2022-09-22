@@ -27,6 +27,7 @@ struct PacMan
     int j;// variável para continuar rodando o jogo
     char nome[30];
     char lista[3][20];
+    char historia[1];
     
 };
 
@@ -907,6 +908,29 @@ void nome(){
     gets(ComeCome.nome);
     system("cls");
 }
+void historia(){
+    linhaCol(2, 2);
+    textColor(RED, _BLACK);
+    setlocale(LC_ALL, "Portuguese"); 
+    printf("\t#############################################################################################################\n");
+    printf("\t##\tEm uma noite nublada, Coracaozin estava passeando pelo parque da cidade e enquanto apreciava a     ##\n");
+    printf("\t## natureza percebeu que tudo estava muito quieto, não dando importância para isso Coracaozin caminhou   ##\n");
+    printf("\t## até o lago do parque, ao se aproximar notou que havia cinco patos no lugar, fez um som para chamar     ##\n");
+    printf("\t## a atenção mas se arrependeu logo em seguida, os animais o olharam e ele notou não eram patos comuns, ##\n");
+    printf("\t## eles usavam mascaras com rostos felizes, eram os lendarios PsicoPatos, os patos assassinos, eles        ##\n");
+    printf("\t## começaram a sair da água e ir atrás de Coracaozin que começou a correr para fugir e se              ##\n");
+    printf("\t## embrenhou nas árvores.                                                                                 ##\n");
+    printf("\t##\tDepois de algum tempo correndo e ouvindo seus perseguidores vindo em sua procura, Coraçãozin se  ##\n");
+    printf("\t## viu em frente a uma construção antiga do que parecia ser um labirinto, olhando para uma placa velha   ##\n");
+    printf("\t## e enferrujada ele pode ler as palavras 'Come-Come', ouvindo que os PsicoPatos estavam cada vez mais     ##\n"); 
+    printf("\t## próximos e sem alternativa Coraçãozin entrou no labirinto.                                           ##\n");
+    printf("\t##\tAgora depois de andar por algum tempo, Coraçãozin está no meio do labirinto e pode ouvir que os ##\n");  
+    printf("\t## PsicoPatos estão espalhados o procurando.                                                              ##\n");   
+    printf("\t##\tAjude Coraçãozin a coletar todas as comidas e escapar dos PsicoPatos.                            ##\n");  
+    printf("\t#############################################################################################################\n"); 
+    gets(ComeCome.historia);
+    system("cls"); 
+}
 
 
 int main()
@@ -915,6 +939,7 @@ int main()
     menu_inicial();
     inicializar();
     nome();
+    historia();
     while (ComeCome.j == 0)
     {
         teclado();
@@ -925,7 +950,7 @@ int main()
         cronometro();
         pause();
         morte();
-	ganhou();
+		ganhou();
         Sleep(100);
         set_cursor_position(0, 0);
     }
