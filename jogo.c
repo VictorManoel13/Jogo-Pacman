@@ -1,9 +1,9 @@
-#include <stdio.h>
-#include <conio.h>
-#include <windows.h>
-#include <locale.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include <stdio.h> 
+#include <conio.h> // Teclado
+#include <windows.h> // definir cursor
+#include <locale.h> // portugues
+#include <stdlib.h> // random
+#include <stdbool.h> // True and False
 #define L 20
 #define C 29
 
@@ -831,7 +831,7 @@ void ganhou(){
     printf("\t\t\t\t| ##  ###   ######   ##  #  ##  ######  ##   ##  ##   ## |\n");
     printf("\t\t\t\t| ##    #  ##    ##  ##   # ##  ##  ##  ##   ##  ##   ## |\n");
     printf("\t\t\t\t| ######   ##    ##  ##    ###  ##  ##    ###      ###   |\n\n");
-    printf("\t\t\t\t\t\tCoracaozin conseguiu escapar para viver mais um dia\n\n");
+    printf("\t\t\t\t\tCoracaozin conseguiu escapar para viver mais um dia\n\n");
     printf("\t\t\t\t\t\tO(a) jogador(a) %s fez %d ponto(s)\n\n", ComeCome.nome, ComeCome.comida);
 	 while (true)
         {
@@ -937,8 +937,10 @@ int main()
     SetConsoleTitle("Jogo que Ceres gostou");
     menu_inicial();
     inicializar();
+    if(ComeCome.j == 0){
     nome();
     historia();
+    }
     while (ComeCome.j == 0)
     {
         teclado();
